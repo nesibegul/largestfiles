@@ -13,8 +13,11 @@ def largest_files(my_path, n=20):
             full_path = abspath(join(top_dir, _file))
             #print('this is topdir _ file:', join(top_dir, _file))
             #print('this is full_path', full_path)
-            size = getsize(full_path)
-            sizes[full_path] = size
+            try:
+                size = getsize(full_path)
+                sizes[full_path] = size
+            except OSError as e:
+                print('cannot access {0}: {1}'.format(full_path, e))
 
     sorted_results = sorted(sizes, key = sizes.get, reverse = True)
     for i in range(10):
@@ -23,4 +26,4 @@ def largest_files(my_path, n=20):
         print('Path: {0}, size: {1}'.format(path, sizes[path] ))
 
 if __name__ == '__main__':
-    largest_files(r'C:\Users\43117073062\Downloads\INTERVIEW - Kopya', n=10)
+    largest_files(r'/workspace/Desktop/Data_engineering/Scripting_with_python_and_sql', n=10)
